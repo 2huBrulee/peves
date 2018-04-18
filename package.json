@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-scripts": "1.1.4",
-    "react-awesome-button": "4.2.0",
-    "react-file-picker": "0.0.5",
-    "react-data-grid": "3.0.11",
+    "axios": "^0.18.0",
     "prop-types": "15.6.1",
-    "react-bootstrap": "^0.32.1"
+    "react": "^16.3.2",
+    "react-awesome-button": "4.2.0",
+    "react-bootstrap": "^0.32.1",
+    "react-data-grid": "3.0.11",
+    "react-dom": "^16.3.2",
+    "react-file-picker": "0.0.5",
+    "react-scripts": "1.1.4",
+    "xlsx": "0.12.9"
   },
   "scripts": {
     "start": "react-scripts start",

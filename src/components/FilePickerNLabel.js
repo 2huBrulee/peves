@@ -2,14 +2,14 @@ import React from 'react';
 import { FilePicker } from 'react-file-picker'
 import { Button } from 'react-bootstrap'
 
-const FilePickerNLabel = ({...props}) =>
+const FilePickerNLabel = ({parse=f=>f,...props}) =>
   <div>
       <label>
           ALGUN ARCHIVO.xlsx
       </label>
       <FilePicker
       extensions={['xlsx']}
-      onChange={FileObject => console.log(FileObject.name)}
+      onChange={FileObject => parse(FileObject)}
       onError={errMsg => console.log('TIPO ERRADO')}
         >
           <Button bsStyle="primary">

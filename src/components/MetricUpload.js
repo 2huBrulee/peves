@@ -2,10 +2,10 @@ import React from 'react';
 import GridSave from './GridSave';
 import FilePickerNLabel from "./FilePickerNLabel";
 
-const MetricUpload = ({...props}) =>
+const MetricUpload = ({data,...props}) =>
     <div>
-        <FilePickerNLabel/>
-        <GridSave/>
+        <FilePickerNLabel {...props}/>
+        <GridSave data={data} />
     </div>
 
 export default MetricUpload
