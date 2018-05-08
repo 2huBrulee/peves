@@ -11,7 +11,8 @@ class App extends Component {
   constructor(...props){
       super(...props)
       this.state = {
-          rawData: [
+          rawData:[
+          [
               {
                   year:2017,
                   months:[
@@ -40,43 +41,218 @@ class App extends Component {
               },{
 
               }
-          ]
+          ],[
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                              {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  meta:127,
+                                  pp:105,
+                                  pct:82
+                              },
+                              {
+                                  id:2,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  meta:127,
+                                  pp:105,
+                                  pct:82
+                              }
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ],[
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                              {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              },
+                              {
+                                  id:2,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              }
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ],[
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                              {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              },
+                              {
+                                  id:2,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              }
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ],[
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                              {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  meta: 127,
+                                  mes: 105,
+                                  pct: 82
+
+                              },
+                              {
+                                  id: 2,
+                                  renaes: "000005814",
+                                  nombre: "C.S.M.I. ANCON",
+                                  meta: 127,
+                                  mes: 105,
+                                  pct: 82
+                              }
+
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ], [
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                              {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  meta:127,
+                                  mes:105,
+                                  pct:82
+                              },
+                              {
+                                  id:2,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  meta:127,
+                                  mes:105,
+                                  pct:82
+                              }
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ],[
+              {
+                  year:2017,
+                  months:[
+                      {
+                          month:1,
+                          eess:[
+                               {
+                                  id:1,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              },
+                              {
+                                  id:2,
+                                  renaes:"000005814",
+                                  nombre:"C.S.M.I. ANCON",
+                                  total:127,
+                                  sis:105,
+                                  pct:82
+                              }
+                          ]
+                      }
+                  ]
+              },{
+
+              }
+          ]]
       }
 
-      this.wewewewe = this.wewewewe.bind(this)
-      this.parse = this.parse.bind(this)
-      this.postMes = this.postMes.bind(this)
+      this.parse = this.parse.bind(this);
+      this.postMes = this.postMes.bind(this);
+      this.wewewewe = this.wewewewe.bind(this);
   }
 
-  postMes = () => {
-      axios.post('http://localhost:8000/datosmetricas/api/1',this.state.rawData).then(res =>
+  postMes = (key) => {
+      axios.post('http://localhost:8000/datosmetricas/api/1',this.state.rawData[key]).then(res =>
         console.log(res)
       )
   }
 
-  wewewewe = (mimi) => {
-      console.log(mimi[0].eess.length)
+  wewewewe = (mimi,key) => {
+      console.log(mimi[0].eess.length);
+      console.log(key);
       this.setState(prevState => {
-          let xdData = {}
+          let xdData = {};
           xdData = prevState;
-          xdData.rawData[0].months=mimi
+          xdData.rawData[key-1][0].months=mimi
           console.log(xdData)
           return xdData
-          let kuki =  Object.assign({},{rawData:xdData})
-          console.dir(kuki)
           }
-      )
-      this.postMes()
+      );
+
       console.log(this.state)
   }
 
-  parse = (XLSXObject) => {
+  parse = (XLSXObject, key) => {
       var rABS = true; // true: readAsBinaryString ; false: readAsArrayBuffer
       var months = []
       months.push({
           month:1,
           eess:[]
-      },{
+          },{
               month:2,
               eess:[]
           },{
@@ -112,7 +288,7 @@ class App extends Component {
           }
           )
 
-      let kek = (months) => this.wewewewe(months)
+      let kek = (months,key) => this.wewewewe(months,key);
 
       function handleFile(e) {
           var f = XLSXObject;
@@ -132,27 +308,76 @@ class App extends Component {
                   if(roa.length) result[sheetName] = roa;
               });
 
-              for (var k=1;k<=12;k++) {
 
-                  var xxd = result["ORIGINAL"].map((val, pos) => {
-                      if (pos > 5 && val[1]) {
-                          return Object.assign({}, {
-                              id: pos - 5,
-                              renaes: val[0],
-                              nombre: val[1],
-                              total: parseInt(val[2+k*3]),
-                              sis: parseInt(val[3+k*3]),
-                              pct: parseFloat(val[4+k*3])
-                          })
-                      }
-                  }).filter(item => item);
+                    switch (key){
+                        case 1:
+                        case 3:
+                        case 4:
+                        case 7:
+                            for (var k=1;k<=12;k++) {
+                                var xxd = result["ORIGINAL"].map((val, pos) => {
+                                    if (pos > 5 && val[1]) {
+                                        return Object.assign({}, {
+                                            id: pos - 5,
+                                            renaes: val[0],
+                                            nombre: val[1],
+                                            total: parseInt(val[k*3-1]),
+                                            sis: parseInt(val[k*3]),
+                                            pct: parseFloat(val[1+k*3])
+                                        })
+                                    }
+                                }).filter(item => item);
+                                months[k-1].eess = xxd
+                                console.log(xxd)
+                                console.log(months[k-1].eess.length)
+                            }
+                                break;
+                            case 5:
+                        case 6:
+                            for (var k=1;k<=12;k++) {
+                                var xxd = result["ORIGINAL"].map((val, pos) => {
+                                    if (pos > 5 && val[0]) {
+                                        return Object.assign({}, {
+                                            id: pos - 5,
+                                            renaes: "",
+                                            nombre: val[1],
+                                            meta: parseInt(val[k*3-1]),
+                                            mes: parseInt(val[k*3]),
+                                            pct: parseFloat(val[1+k*3])
+                                        })
+                                    }
+                                }).filter(item => item);
+                                months[k-1].eess = xxd
+                                console.log(xxd)
+                                console.log(months[k-1].eess.length)
+                            }
+                            break;
+                        case 2:
+                            for (var k=1;k<=12;k++) {
+                                var xxd = result["Original"].map((val, pos) => {
+                                    if (pos > 5 && val[0]) {
+                                        return Object.assign({}, {
+                                            id: pos - 5,
+                                            renaes: "",
+                                            nombre: val[1],
+                                            meta: parseInt(val[k*3-1]),
+                                            pp: parseInt(val[k*3]),
+                                            pct: parseFloat(val[1+k*3])
+                                        })
+                                    }
+                                }).filter(item => item);
+                                months[k-1].eess = xxd
+                                console.log(xxd)
+                                console.log(months[k-1].eess.length)
+                            }
+                            break;
+                    }
 
-                  months[k-1].eess = xxd
-                  console.log(months[k-1].eess.length)
 
-              }
+
+
               console.log(months)
-              kek(months)
+              kek(months,key)
           };
           if(rABS) reader.readAsBinaryString(f); else reader.readAsArrayBuffer(f);
 
@@ -161,7 +386,7 @@ class App extends Component {
       return handleFile(XLSXObject)
   }
 
-  render() {
+  render(){
     return (
         <Grid>
             <Col xs={3} md={2}>

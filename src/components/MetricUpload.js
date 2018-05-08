@@ -1,11 +1,18 @@
 import React from 'react';
 import GridSave from './GridSave';
 import FilePickerNLabel from "./FilePickerNLabel";
+import {Button} from 'react-bootstrap';
 
-const MetricUpload = ({data,...props}) =>
+const MetricUpload = ({data,me,...props}) =>
     <div>
-        <FilePickerNLabel {...props}/>
-        <GridSave data={data} />
+        <FilePickerNLabel me={me} {...props}/>
+        <Button bsStyle="primary" type="submit" >SUBIR A LA BASE DE DATOS</Button>
+
+        {data.months.map((n,i)=>{
+            {console.log(i,n)}
+            return <GridSave key={i} data={n} {...props}/>
+        })}
+
     </div>
 
 export default MetricUpload
