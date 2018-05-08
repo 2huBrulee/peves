@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MetricTabs from './components/MetricTabs'
+import EESSList from './components/EESSList'
 import XLSX from 'xlsx';
-import { Grid,Row,Col } from 'react-bootstrap'
+import { Grid,Row,Col,Button } from 'react-bootstrap'
 import axios from 'axios'
 
 
@@ -11,6 +12,59 @@ class App extends Component {
   constructor(...props){
       super(...props)
       this.state = {
+          view: 1,
+          eess:[
+                  {
+                      "ideess": 96,
+                      "nombre": "C.S.M.I. ANCON",
+                      "tipo": "1",
+                      "gerente": "Steve",
+                      "direccion": "Mi casa",
+                      "renaes": "000005814",
+                      "diris_iddiris": 1,
+                      "color":"#66ff66"
+                  },
+                  {
+                      "ideess": 97,
+                      "nombre": "C.S. VILLA ESTELA",
+                      "tipo": "1",
+                      "gerente": "Steve",
+                      "direccion": "Mi casa",
+                      "renaes": "000005823",
+                      "diris_iddiris": 1,
+                      "color":"#66ff66"
+                  },
+                  {
+                      "ideess": 98,
+                      "nombre": "P.S. SAN JOSE",
+                      "tipo": "1",
+                      "gerente": "Steve",
+                      "direccion": "Mi casa",
+                      "renaes": "000005824",
+                      "diris_iddiris": 1,
+                      "color":"#66ff66"
+                  },
+                  {
+                      "ideess": 99,
+                      "nombre": "P.S. VILLAS DE ANCON",
+                      "tipo": "1",
+                      "gerente": "Steve",
+                      "direccion": "Mi casa",
+                      "renaes": "000016525",
+                      "diris_iddiris": 1,
+                      "color":"#66ff66"
+                  },
+                  {
+                      "ideess": 100,
+                      "nombre": "C.S. RAUL PORRAS BARRENECHEA",
+                      "tipo": "1",
+                      "gerente": "Steve",
+                      "direccion": "Mi casa",
+                      "renaes": "000005734",
+                      "diris_iddiris": 1,
+                      "color":"#66ff66"
+                  }
+          ],
           rawData:[
           [
               {
@@ -222,11 +276,30 @@ class App extends Component {
 
       this.parse = this.parse.bind(this);
       this.postMes = this.postMes.bind(this);
+      this.changeView = this.changeView.bind(this);
       this.wewewewe = this.wewewewe.bind(this);
   }
 
+  changeView = () => {
+      if (this.state.view===2){
+          this.setState(prevState => ({
+              view:1
+          }))
+      }else{
+          axios.get('http://localhost:8000/eess/api').then(res =>{
+              this.setState(prevState => ({
+                  eess: res.data,
+                  view: 2
+              }))
+          })
+
+
+      }
+
+  }
+
   postMes = (key) => {
-      axios.post('http://localhost:8000/datosmetricas/api/1',this.state.rawData[key]).then(res =>
+      axios.post(`http://localhost:8000/datosmetricas/api/${key-1}`,this.state.rawData[key]).then(res =>
         console.log(res)
       )
   }
@@ -358,7 +431,6 @@ class App extends Component {
                                     if (pos > 5 && val[0]) {
                                         return Object.assign({}, {
                                             id: pos - 5,
-                                            renaes: "",
                                             nombre: val[1],
                                             meta: parseInt(val[k*3-1]),
                                             pp: parseInt(val[k*3]),
@@ -387,9 +459,12 @@ class App extends Component {
   }
 
   render(){
+      if (this.state.view===1){
     return (
+        <div>
         <Grid>
             <Col xs={3} md={2}>
+                <Button bsStyle="primary" type="submit" onClick={this.changeView}>CAMBIAR VISTA</Button>
             </Col>
             <Col xs={12} md={8}>
                 <div className="App">
@@ -397,13 +472,38 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo" />
                         <h1 className="App-title">MODULO de Administrador</h1>
                     </header>
-                    <MetricTabs data={this.state.rawData} parse={this.parse}/>
+                    <MetricTabs data={this.state.rawData} onClick={this.postMes} parse={this.parse}/>
                 </div>
             </Col>
             <Col xs={3} md={2}>
             </Col>
+
         </Grid>
-    );
+        </div>
+    )}else {
+          return(
+              <Grid>
+                  <Col xs={3} md={2}>
+                      <Button bsStyle="primary" type="submit" onClick={this.changeView}>CAMBIAR VISTA</Button>
+                  </Col>
+                  <Col xs={12} md={8}>
+                      <div className="App">
+                          <header className="App-header">
+                              <img src={logo} className="App-logo" alt="logo" />
+                              <h1 className="App-title">MODULO de DIRIS</h1>
+                          </header>
+                          <Row>
+                            <EESSList eess={this.state.eess}/>
+                          </Row>
+                      </div>
+                  </Col>
+                  <Col xs={3} md={2}>
+                  </Col>
+
+              </Grid>
+
+          )
+      }
   }
 }
 
