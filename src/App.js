@@ -12,7 +12,7 @@ class App extends Component {
   constructor(...props){
       super(...props)
       this.state = {
-          view: 1,
+          view: 2,
           eess:[
                   {
                       "ideess": 96,
@@ -281,6 +281,7 @@ class App extends Component {
   }
 
   changeView = () => {
+      console.log(this.state.view)
       if (this.state.view===2){
           this.setState(prevState => ({
               view:1
@@ -299,7 +300,8 @@ class App extends Component {
   }
 
   postMes = (key) => {
-      axios.post(`http://localhost:8000/datosmetricas/api/${key-1}`,this.state.rawData[key]).then(res =>
+      console.log(key)
+      axios.post(`http://localhost:8000/datosmetricas/api/${key}`,this.state.rawData[key-1]).then(res =>
         console.log(res)
       )
   }
@@ -408,11 +410,10 @@ class App extends Component {
                             case 5:
                         case 6:
                             for (var k=1;k<=12;k++) {
-                                var xxd = result["ORIGINAL"].map((val, pos) => {
+                                var xxd = result["Original"].map((val, pos) => {
                                     if (pos > 5 && val[0]) {
                                         return Object.assign({}, {
                                             id: pos - 5,
-                                            renaes: "",
                                             nombre: val[1],
                                             meta: parseInt(val[k*3-1]),
                                             mes: parseInt(val[k*3]),
@@ -463,10 +464,10 @@ class App extends Component {
     return (
         <div>
         <Grid>
-            <Col xs={3} md={2}>
+            <Col xs={3} md={3}>
                 <Button bsStyle="primary" type="submit" onClick={this.changeView}>CAMBIAR VISTA</Button>
             </Col>
-            <Col xs={12} md={8}>
+            <Col xs={12} md={12}>
                 <div className="App">
                     <header className="App-header">
                         <img src={logo} className="App-logo" alt="logo" />
@@ -475,7 +476,7 @@ class App extends Component {
                     <MetricTabs data={this.state.rawData} onClick={this.postMes} parse={this.parse}/>
                 </div>
             </Col>
-            <Col xs={3} md={2}>
+            <Col xs={3} md={3}>
             </Col>
 
         </Grid>
@@ -492,6 +493,8 @@ class App extends Component {
                               <img src={logo} className="App-logo" alt="logo" />
                               <h1 className="App-title">MODULO de DIRIS</h1>
                           </header>
+
+
                           <Row>
                             <EESSList eess={this.state.eess}/>
                           </Row>

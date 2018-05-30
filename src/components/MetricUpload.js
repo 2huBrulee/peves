@@ -6,7 +6,7 @@ import {Button} from 'react-bootstrap';
 const MetricUpload = ({data,me,onClick,...props}) =>
     <div>
         <FilePickerNLabel me={me} {...props}/>
-        <Button bsStyle="primary" type="submit" onClick={(me)=>onClick(me)}>SUBIR A LA BASE DE DATOS</Button>
+        <Button bsStyle="primary" type="submit" onClick={()=>onClick(me)}>SUBIR A LA BASE DE DATOS</Button>
 
         {data.months.map((n,i)=>{
             {console.log(i,n)}
